@@ -1,7 +1,7 @@
 import { GrafoLib } from "../models/GrafoLib";
 
 export default function Grafo2(){
-    const grafo2 = new GrafoLib()
+    const grafo2 = new GrafoLib(true)
     grafo2.adicionarVertice(1)
     grafo2.adicionarVertice(2)
     grafo2.adicionarVertice(3)
