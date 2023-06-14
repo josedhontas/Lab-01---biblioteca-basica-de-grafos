@@ -13,27 +13,39 @@ export class GrafoLib {
     this.usarMatrizAdjacencia = usarMatrizAdjacencia;
 
     if (usarMatrizAdjacencia) {
-      for (let i = 0; i < this.vertices.size; i++) {
+      const tamanhoAtual = this.vertices.size;
+      for (let i = 0; i < tamanhoAtual; i++) {
         this.matrizAdjacencia[i] = [];
-        for (let j = 0; j < this.vertices.size; j++) {
+        for (let j = 0; j < tamanhoAtual; j++) {
           this.matrizAdjacencia[i][j] = 0;
         }
       }
     }
+    
+
+    console.log(this.matrizAdjacencia)
   }
 
   adicionarVertice(indice: number, rotulo: string = ""): void {
     if (this.usarMatrizAdjacencia) {
       const tamanhoAtual = this.vertices.size;
-      this.matrizAdjacencia[indice] = new Array<number>(tamanhoAtual).fill(0);
-      for (let i = 0; i < tamanhoAtual; i++) {
+      this.matrizAdjacencia[indice] = new Array<number>(tamanhoAtual + 1).fill(0);
+      for (let i = 0; i <= tamanhoAtual; i++) {
         this.matrizAdjacencia[i][indice] = 0;
       }
+      for (let i = 0; i < tamanhoAtual; i++) {
+        this.matrizAdjacencia[indice][i] = 0;
+      }
     } else {
+      if (this.vertices.has(indice)) {
+        throw new Error('Vértice já existe no grafo.');
+      }
+  
       this.vertices.set(indice, rotulo);
       this.listaAdjacencia.set(indice, []);
     }
   }
+  
 
   adicionarAresta(verticeOrigem: number, verticeDestino: number): void {
     if (this.usarMatrizAdjacencia) {
@@ -124,9 +136,7 @@ export class GrafoLib {
       console.log('Matriz de Adjacência:');
       console.log(this.matrizAdjacencia);
     } else {
-      console.log('Representação: Lista de Adjacência');
       console.log('Lista de Adjacência:');
-  
       for (const [indice, rotulo] of Array.from(this.vertices.entries())) {
         const vizinhos = this.listaAdjacencia.get(indice)?.join(", ") || "";
         const grau = this.grauVertice(indice);
@@ -134,33 +144,6 @@ export class GrafoLib {
       }
     }
   }
-  
 
-  private atualizarMatrizAdjacencia(): void {
-    this.matrizAdjacencia = [];
 
-    for (let i = 0; i < this.vertices.size; i++) {
-      this.matrizAdjacencia[i] = [];
-      for (let j = 0; j < this.vertices.size; j++) {
-        if (this.saoVizinhos(i, j)) {
-          this.matrizAdjacencia[i][j] = 1;
-        } else {
-          this.matrizAdjacencia[i][j] = 0;
-        }
-      }
-    }
-  }
-
-  imprimirMatrizAdjacencia(): void {
-    if (this.usarMatrizAdjacencia) {
-      this.atualizarMatrizAdjacencia();
-      console.log('Matriz de Adjacência:');
-      for (let i = 0; i < this.matrizAdjacencia.length; i++) {
-        const row = this.matrizAdjacencia[i].map(value => value || 0); // Substitui os valores vazios por 0
-        console.log(row);
-      }
-    } else {
-      console.log('A representação atual do grafo não é uma matriz de adjacência.');
-    }
-  }
 }
