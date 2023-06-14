@@ -26,7 +26,7 @@ export class GrafoLib {
     if (this.usarMatrizAdjacencia) {
       const tamanhoAtual = this.vertices.size;
       this.matrizAdjacencia[indice] = new Array<number>(tamanhoAtual).fill(0);
-        this.matrizAdjacencia[indice][indice] = 0;
+      this.matrizAdjacencia[indice][indice] = 0;
     } else {
       this.vertices.set(indice, rotulo);
       this.listaAdjacencia.set(indice, []);
@@ -36,14 +36,14 @@ export class GrafoLib {
   adicionarAresta(verticeOrigem: number, verticeDestino: number): void {
     if (this.usarMatrizAdjacencia) {
       this.matrizAdjacencia[verticeOrigem][verticeDestino] = 1;
-  
+
       if (verticeOrigem === verticeDestino) {
         const numLacos = this.matrizAdjacencia[verticeOrigem][verticeDestino];
         this.matrizAdjacencia[verticeOrigem][verticeDestino] = numLacos !== undefined ? numLacos + 1 : 2;
       }
-  
+
       this.matrizAdjacencia[verticeDestino][verticeOrigem] = 1;
-  
+
       if (verticeOrigem === verticeDestino) {
         const numLacos = this.matrizAdjacencia[verticeDestino][verticeOrigem];
         this.matrizAdjacencia[verticeDestino][verticeOrigem] = numLacos !== undefined ? numLacos + 1 : 2;
@@ -52,14 +52,14 @@ export class GrafoLib {
       if (!this.listaAdjacencia.has(verticeOrigem) || !this.listaAdjacencia.has(verticeDestino)) {
         throw new Error('Vértice(s) não existe(m) no grafo.');
       }
-  
+
       this.listaAdjacencia.get(verticeOrigem)?.push(verticeDestino);
       this.listaAdjacencia.get(verticeDestino)?.push(verticeOrigem);
     }
-  
+
     this.arestas++;
   }
-  
+
 
   removerAresta(verticeOrigem: number, verticeDestino: number): void {
     if (this.usarMatrizAdjacencia) {
@@ -113,24 +113,69 @@ export class GrafoLib {
     }
   }
 
+
   imprimirGrafo(): void {
-    console.log(`Número de vértices: ${this.matrizAdjacencia.length}`);
-    console.log(`Número de arestas: ${this.arestas}`);
-  
     if (this.usarMatrizAdjacencia) {
-      console.log('Representação: Matriz de Adjacência');
-      console.log('Matriz de Adjacência:');
-      console.log(this.matrizAdjacencia);
+      this.imprimirMatrizAdjacencia()
+
     } else {
-      console.log('Representação: Lista de Adjacência');
-      console.log('Lista de Adjacência:');
-  
-      for (const [indice, rotulo] of Array.from(this.vertices.entries())) {
-        const vizinhos = this.listaAdjacencia.get(indice)?.join(", ") || "";
-        const grau = this.grauVertice(indice);
-        console.log(`Vértice ${indice} (${rotulo}): vizinhos -> ${vizinhos}, grau: ${grau}`);
+      this.imprimirListaAdjacencia()
+
+    }
+  }
+
+  somarLinhaMatriz(indice: number): number {
+    let soma = 0;
+    for (let i = 0; i < this.matrizAdjacencia[indice].length; i++) {
+      soma += this.matrizAdjacencia[indice][i];
+    }
+    return soma;
+  }
+
+  imprimirMatrizAdjacencia() {
+    console.log(`Número de vértices: ${this.matrizAdjacencia.length}`);
+    let arestas = 0;
+    for (let i = 0; i < this.matrizAdjacencia.length; i++) {
+      for (let j = i; j < this.matrizAdjacencia[i].length; j++) {
+        if (this.matrizAdjacencia[i][j] !== 0) {
+          arestas++;
+        }
+      }
+    }
+    console.log(`Número de arestas: ${arestas}`);
+    console.log('Matriz de Adjacência:');
+    console.log(this.matrizAdjacencia);
+    console.log('Arestas:');
+    for (let i = 0; i < this.matrizAdjacencia.length; i++) {
+      const grau = this.somarLinhaMatriz(i);
+      console.log(`Vértice ${i}: grau ${grau}`);
+    }
+    console.log('Arestas:');
+    for (let i = 0; i < this.matrizAdjacencia.length; i++) {
+      for (let j = i; j < this.matrizAdjacencia[i].length; j++) {
+        if (this.matrizAdjacencia[i][j] !== 0) {
+          process.stdout.write(`(${i}, ${j}),`);
+        }
       }
     }
   }
-  
+
+  imprimirListaAdjacencia() {
+    console.log(`Número de vértices: ${this.listaAdjacencia.size}`);
+    console.log(`Número de arestas: ${this.arestas}`);
+    console.log('Lista de Adjacência:');
+    for (const [indice, rotulo] of Array.from(this.vertices.entries())) {
+      const vizinhos = this.listaAdjacencia.get(indice)?.join(", ") || "";
+      const grau = this.grauVertice(indice);
+      console.log(`Vértice ${indice} (${rotulo})-> ${vizinhos}, grau: ${grau}`);
+    }
+    console.log('Arestas:');
+    for (const [verticeOrigem, vizinhos] of this.listaAdjacencia.entries()) {
+      for (const verticeDestino of vizinhos) {
+        if (verticeOrigem <= verticeDestino) {
+          process.stdout.write(`(${verticeOrigem}, ${verticeDestino}),`);
+        }
+      }
+    }
+  }
 }
