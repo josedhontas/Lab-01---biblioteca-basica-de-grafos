@@ -114,7 +114,7 @@ export class GrafoLib {
   }
 
   imprimirGrafo(): void {
-    console.log(`Número de vértices: ${this.vertices.size}`);
+    console.log(`Número de vértices: ${this.matrizAdjacencia.length}`);
     console.log(`Número de arestas: ${this.arestas}`);
   
     if (this.usarMatrizAdjacencia) {
@@ -133,32 +133,4 @@ export class GrafoLib {
     }
   }
   
-
-  private atualizarMatrizAdjacencia(): void {
-    this.matrizAdjacencia = [];
-
-    for (let i = 0; i < this.vertices.size; i++) {
-      this.matrizAdjacencia[i] = [];
-      for (let j = 0; j < this.vertices.size; j++) {
-        if (this.saoVizinhos(i, j)) {
-          this.matrizAdjacencia[i][j] = 1;
-        } else {
-          this.matrizAdjacencia[i][j] = 0;
-        }
-      }
-    }
-  }
-
-  imprimirMatrizAdjacencia(): void {
-    if (this.usarMatrizAdjacencia) {
-      this.atualizarMatrizAdjacencia();
-      console.log('Matriz de Adjacência:');
-      for (let i = 0; i < this.matrizAdjacencia.length; i++) {
-        const row = this.matrizAdjacencia[i].map(value => value || 0); // Substitui os valores vazios por 0
-        console.log(row);
-      }
-    } else {
-      console.log('A representação atual do grafo não é uma matriz de adjacência.');
-    }
-  }
 }
