@@ -143,9 +143,7 @@ export class GrafoLib {
       }
     }
     console.log(`Número de arestas: ${arestas}`);
-    console.log('Matriz de Adjacência:');
-    console.log(this.matrizAdjacencia);
-    console.log('Arestas:');
+    console.log('Vertices:');
     for (let i = 0; i < this.matrizAdjacencia.length; i++) {
       const grau = this.somarLinhaMatriz(i);
       console.log(`Vértice ${i}: grau ${grau}`);
@@ -163,11 +161,11 @@ export class GrafoLib {
   imprimirListaAdjacencia() {
     console.log(`Número de vértices: ${this.listaAdjacencia.size}`);
     console.log(`Número de arestas: ${this.arestas}`);
-    console.log('Lista de Adjacência:');
+    console.log('Vertices:');
     for (const [indice, rotulo] of Array.from(this.vertices.entries())) {
       const vizinhos = this.listaAdjacencia.get(indice)?.join(", ") || "";
       const grau = this.grauVertice(indice);
-      console.log(`Vértice ${indice} (${rotulo})-> ${vizinhos}, grau: ${grau}`);
+      console.log(`Vértice ${indice} (${rotulo}), grau: ${grau}`);
     }
     console.log('Arestas:');
     for (const [verticeOrigem, vizinhos] of this.listaAdjacencia.entries()) {
