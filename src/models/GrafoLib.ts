@@ -163,17 +163,25 @@ export class GrafoLib {
     console.log(`Número de arestas: ${this.arestas}`);
     console.log('Vertices:');
     for (const [indice, rotulo] of Array.from(this.vertices.entries())) {
-      const vizinhos = this.listaAdjacencia.get(indice)?.join(", ") || "";
       const grau = this.grauVertice(indice);
       console.log(`Vértice ${indice} (${rotulo}), grau: ${grau}`);
     }
     console.log('Arestas:');
+    const arestasVisitadas = new Set();
     for (const [verticeOrigem, vizinhos] of this.listaAdjacencia.entries()) {
       for (const verticeDestino of vizinhos) {
         if (verticeOrigem <= verticeDestino) {
-          process.stdout.write(`(${verticeOrigem}, ${verticeDestino}),`);
+          const aresta = `(${verticeOrigem}, ${verticeDestino})`;
+          if (verticeOrigem !== verticeDestino || !arestasVisitadas.has(aresta)) {
+            arestasVisitadas.add(aresta);
+            process.stdout.write(`${aresta},`);
+          }
         }
       }
     }
   }
+  
+  
+  
+  
 }
