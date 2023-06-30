@@ -1,9 +1,9 @@
 import Grafo1 from "./exemplos/Grafo1";
 import Grafo2 from "./exemplos/Grafo2";
-import Bipartido from "./exemplos/Bipartido";
 import kGrafo from "./exemplos/K_grafo";
 import { GrafoLib } from "./models/GrafoLib";
 import gerarGrafoRegular from "./exemplos/gerarGrafoRegular";
+import gerarGrafoBipartido from "./exemplos/gerarGrafoBipartido";
     
 console.log("Grafo 1\n")
 Grafo1().imprimirGrafo()
@@ -21,4 +21,5 @@ gerarGrafoRegular(6, 1)
 
 console.log("\n")
 console.log("Bipartido")
-console.log(Bipartido(Grafo1()))
+gerarGrafoBipartido(3,4).imprimirGrafo()
+console.log(gerarGrafoBipartido(3,4).ehBipartido())

@@ -231,6 +231,33 @@ export class GrafoLib {
       }
     }
   }
+
+  ehBipartido(): boolean {
+    const visitados: Map<number, number> = new Map();
+    const fila: number[] = []; 
+    const verticeInicial = this.vertices.keys().next().value; 
+    visitados.set(verticeInicial, 0); 
+
+    fila.push(verticeInicial);
+
+    while (fila.length > 0) {
+      const verticeAtual = fila.shift() as number;
+      const corAtual = visitados.get(verticeAtual) as number;
+
+      const vizinhos = this.listaAdjacencia.get(verticeAtual) || [];
+      for (const vizinho of vizinhos) {
+        if (!visitados.has(vizinho)) {
+          visitados.set(vizinho, 1 - corAtual); 
+          fila.push(vizinho);
+        } else if (visitados.get(vizinho) === corAtual) {
+          return false; 
+        }
+      }
+    }
+
+    return true;
+  }
+
   
   
   
