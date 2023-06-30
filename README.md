@@ -1,4 +1,4 @@
-## Laboratório 01 - Biblioteca básica de grafos
+## Laboratório - Biblioteca básica de grafos
 
 Esta é uma atividadade para a disciplina de Grafos e Algoritmos Computacionais, desenvolvido por: 
 - José Dhonatas Alves Sales
