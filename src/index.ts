@@ -20,6 +20,7 @@ console.log("Grafo k regular ordem n\n");
 gerarGrafoRegular(6, 1)
 
 console.log("\n")
-console.log("Bipartido")
+console.log("Verifica bipartição\n")
 gerarGrafoBipartido(3,4).imprimirGrafo()
+console.log("Bipartido: ")
 console.log(gerarGrafoBipartido(3,4).ehBipartido())
