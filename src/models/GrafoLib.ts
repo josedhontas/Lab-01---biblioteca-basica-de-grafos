@@ -1,7 +1,7 @@
 export class GrafoLib {
-  private vertices: Map<number, string>;
+  public vertices: Map<number, string>;
   private arestas: number;
-  private listaAdjacencia: Map<number, number[]>;
+  public listaAdjacencia: Map<number, number[]>;
   private matrizAdjacencia: number[][];
   private usarMatrizAdjacencia: boolean;
 

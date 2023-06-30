@@ -16,6 +16,7 @@ export default function Grafo1(){
     grafo1.adicionarAresta(4,5)
     grafo1.adicionarAresta(5,2)
 
-    grafo1.imprimirGrafo()
+    //grafo1.imprimirGrafo()
+    return grafo1
     
 }
