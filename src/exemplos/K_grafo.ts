@@ -1,12 +1,11 @@
 import { GrafoLib } from "../models/GrafoLib";
 import * as readline from 'readline';
 
-export default function kGrafo() {
+export default function kGrafo(answer: number) {
     const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout
     });
-    const answer = 6
     //rl.question('Insira a quantidade de vértices desejados ', (answer)=> {
     const kgrafo = new GrafoLib;
     var counter;

@@ -116,13 +116,64 @@ export class GrafoLib {
 
   imprimirGrafo(): void {
     if (this.usarMatrizAdjacencia) {
-      this.imprimirMatrizAdjacencia()
-
+      this.imprimirMatrizAdjacencia();
     } else {
-      this.imprimirListaAdjacencia()
-
+      this.imprimirListaAdjacencia();
     }
+    var numVerticesGrauImpar
+    const somaGraus = this.calcularSomaGraus();
+    const numVerticesGrauPar = this.contarVerticesGrauPar();
+    if (this.usarMatrizAdjacencia) {
+      numVerticesGrauImpar = this.matrizAdjacencia.length- numVerticesGrauPar;
+
+    }else{
+      numVerticesGrauImpar = this.vertices.size - numVerticesGrauPar;
+    }
+  
+    console.log(`Soma dos graus dos vértices: ${somaGraus}`);
+    console.log(`Número de vértices de grau par: ${numVerticesGrauPar}`);
+    console.log(`Número de vértices de grau ímpar: ${numVerticesGrauImpar}`);
   }
+  
+  calcularSomaGraus(): number {
+    let soma = 0;
+    if (this.usarMatrizAdjacencia) {
+      for (let i = 0; i < this.matrizAdjacencia.length; i++) {
+        for (let j = 0; j < this.matrizAdjacencia[i].length; j++) {
+          soma += this.matrizAdjacencia[i][j];
+        }
+      }
+      soma
+    } else {
+      for (const indice of this.vertices.keys()) {
+        soma += this.grauVertice(indice);
+      }
+    }
+    return soma;
+  }
+  
+  contarVerticesGrauPar(): number {
+    let count = 0;
+    if (this.usarMatrizAdjacencia) {
+      for (let i = 0; i < this.matrizAdjacencia.length; i++) {
+        const grau = this.somarLinhaMatriz(i);
+        if (grau % 2 === 0) {
+          count++;
+        }
+      }
+    } else {
+      for (const indice of this.vertices.keys()) {
+        if (this.grauVertice(indice) % 2 === 0) {
+          count++;
+        }
+      }
+    }
+    return count;
+  }
+  
+  
+  
+  
 
   somarLinhaMatriz(indice: number): number {
     let soma = 0;

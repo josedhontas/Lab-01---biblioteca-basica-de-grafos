@@ -12,8 +12,9 @@ console.log("\n")
 console.log("Grafo 2\n")
 Grafo2().imprimirGrafo()
 
-//console.log("Grafo completo kn\n");
-//kGrafo();
+console.log("\n")
+console.log("Grafo completo kn\n");
+kGrafo(5);
 
 //console.log("Grafo k regular ordem n\n");
 //gerarGrafoRegular(6, 1)
