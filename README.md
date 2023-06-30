@@ -1,6 +1,6 @@
 ## Laboratório - Biblioteca básica de grafos
 
-Esta é uma atividadade para a disciplina de Grafos e Algoritmos Computacionais, desenvolvido por: 
+Esta é uma atividadade para a disciplina de Grafos e Algoritmos Computacionais, desenvolvida por: 
 - José Dhonatas Alves Sales
 - José Clenildo Menezes Silva Sobrinho
 
