@@ -129,7 +129,7 @@ export class GrafoLib {
     }else{
       numVerticesGrauImpar = this.vertices.size - numVerticesGrauPar;
     }
-  
+    console.log("\n")
     console.log(`Soma dos graus dos vértices: ${somaGraus}`);
     console.log(`Número de vértices de grau par: ${numVerticesGrauPar}`);
     console.log(`Número de vértices de grau ímpar: ${numVerticesGrauImpar}`);

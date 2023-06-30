@@ -14,10 +14,10 @@ Grafo2().imprimirGrafo()
 
 console.log("\n")
 console.log("Grafo completo kn\n");
-kGrafo(5);
+kGrafo(7);
 
-//console.log("Grafo k regular ordem n\n");
-//gerarGrafoRegular(6, 1)
+console.log("Grafo k regular ordem n\n");
+gerarGrafoRegular(6, 1)
 
 console.log("\n")
 console.log("Bipartido")
