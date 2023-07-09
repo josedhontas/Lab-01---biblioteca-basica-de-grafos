@@ -7,16 +7,16 @@ import gerarGrafoRegular from "./exemplos/gerarGrafoRegular";
 import gerarGrafoBipartido from "./exemplos/gerarGrafoBipartido";
 
 // Conteudo do lab 01
-/*console.log("Grafo 1\n")
+console.log("Grafo 1\n")
 Grafo1().imprimirGrafo()
 
 console.log("\n")
 console.log("Grafo 2\n")
 Grafo2().imprimirGrafo()
-*/
+
 
 // Conteudo do lab 02
-/*
+
 console.log("\n")
 console.log("Grafo completo kn\n");
 kGrafo(7);
@@ -29,7 +29,6 @@ console.log("Verifica bipartição\n")
 gerarGrafoBipartido(3,4).imprimirGrafo()
 console.log("Bipartido: ")
 console.log(gerarGrafoBipartido(3,4).ehBipartido())
-*/
 
 // Conteudo do lab 03
 console.log("Busca em profundidade: ")

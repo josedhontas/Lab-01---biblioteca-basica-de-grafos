@@ -271,8 +271,9 @@ export class GrafoLib {
   
   private buscaEmProfundidadeAuxiliar(vertice: number, visitados: Set<number>, profundidade: number): void {
     visitados.add(vertice);
+    let rotulo = this.vertices.get(vertice);
+    console.log(`Visitando vertice ${vertice} (${rotulo})`)
     this.profundidadeEntrada.set(vertice, profundidade);
-  
     const vizinhos = this.listaAdjacencia.get(vertice) || [];
     for (const vizinho of vizinhos) {
       if (!visitados.has(vizinho)) {
@@ -304,7 +305,8 @@ export class GrafoLib {
     console.log('Profundidades de entrada e saída dos vértices:');
     for (const [vertice, profundidadeEntrada] of this.profundidadeEntrada.entries()) {
       const profundidadeSaida = this.profundidadeSaida.get(vertice);
-      console.log(`Vértice ${vertice}: Profundidade de entrada: ${profundidadeEntrada}, Profundidade de saída: ${profundidadeSaida}`);
+      let rotulo = this.vertices.get(vertice);
+      console.log(`Vértice ${vertice} (${rotulo}): Profundidade de entrada: ${this.listaAdjacencia.get(vertice)?.length || 0}, Profundidade de saída: ${this.listaAdjacencia.get(vertice)?.length || 0}`);
     }
   }
   
