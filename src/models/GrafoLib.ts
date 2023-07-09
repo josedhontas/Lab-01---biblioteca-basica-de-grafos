@@ -4,6 +4,10 @@ export class GrafoLib {
   public listaAdjacencia: Map<number, number[]>;
   private matrizAdjacencia: number[][];
   private usarMatrizAdjacencia: boolean;
+  public arestasArvore: [number, number][] = [];
+  public arestasRetorno: [number, number][] = [];
+  public profundidadeEntrada: Map<number, number> = new Map();
+  public profundidadeSaida: Map<number, number> = new Map();
 
   constructor(usarMatrizAdjacencia: boolean = false) {
     this.vertices = new Map<number, string>();
@@ -171,10 +175,6 @@ export class GrafoLib {
     return count;
   }
   
-  
-  
-  
-
   somarLinhaMatriz(indice: number): number {
     let soma = 0;
     for (let i = 0; i < this.matrizAdjacencia[indice].length; i++) {
@@ -258,8 +258,53 @@ export class GrafoLib {
     return true;
   }
 
+  buscaEmProfundidade(verticeInicial: number): void {
+    const visitados: Set<number> = new Set();
+    this.arestasArvore = [];
+    this.arestasRetorno = [];
+    this.profundidadeEntrada = new Map();
+    this.profundidadeSaida = new Map();
+    let profundidade = 0;
+    this.buscaEmProfundidadeAuxiliar(verticeInicial, visitados, profundidade);
+    this.imprimirInformacoesBuscaEmProfundidade();
+  }
+
+  private buscaEmProfundidadeAuxiliar(vertice: number, visitados: Set<number>, profundidade: number): void {
+    visitados.add(vertice);
+    this.profundidadeEntrada.set(vertice, profundidade);
+    //console.log(`Visitando vértice ${vertice} (${this.vertices.get(vertice)})`);
+
+    const vizinhos = this.listaAdjacencia.get(vertice) || [];
+    for (const vizinho of vizinhos) {
+      if (!visitados.has(vizinho)) {
+        profundidade++;
+        this.arestasArvore.push([vertice, vizinho]);
+        this.buscaEmProfundidadeAuxiliar(vizinho, visitados, profundidade);
+      }
+    }
+
+    this.profundidadeSaida.set(vertice, profundidade);
+    profundidade++;
+  } 
+
   
-  
-  
+
+  imprimirInformacoesBuscaEmProfundidade(): void {
+    console.log('Arestas da árvore:');
+    for (const aresta of this.arestasArvore) {
+      console.log(`(${aresta[0]}, ${aresta[1]})`);
+    }
+
+    console.log('Arestas de retorno:');
+    for (const aresta of this.arestasRetorno) {
+      console.log(`(${aresta[0]}, ${aresta[1]})`);
+    }
+
+    console.log('Profundidades de entrada e saída dos vértices:');
+    for (const [vertice, profundidadeEntrada] of this.profundidadeEntrada.entries()) {
+      const profundidadeSaida = this.profundidadeSaida.get(vertice);
+      console.log(`Vértice ${vertice}: Profundidade de entrada: ${profundidadeEntrada}, Profundidade de saída: ${profundidadeSaida}`);
+    }
+  }
   
 }
