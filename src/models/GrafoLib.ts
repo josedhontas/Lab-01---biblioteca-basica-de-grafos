@@ -262,31 +262,32 @@ export class GrafoLib {
     const visitados: Set<number> = new Set();
     this.arestasArvore = [];
     this.arestasRetorno = [];
-    this.profundidadeEntrada = new Map();
-    this.profundidadeSaida = new Map();
+    this.profundidadeEntrada = new Map<number, number>();
+    this.profundidadeSaida = new Map<number, number>();
     let profundidade = 0;
     this.buscaEmProfundidadeAuxiliar(verticeInicial, visitados, profundidade);
     this.imprimirInformacoesBuscaEmProfundidade();
   }
-
+  
   private buscaEmProfundidadeAuxiliar(vertice: number, visitados: Set<number>, profundidade: number): void {
     visitados.add(vertice);
     this.profundidadeEntrada.set(vertice, profundidade);
-    //console.log(`Visitando vértice ${vertice} (${this.vertices.get(vertice)})`);
-
+  
     const vizinhos = this.listaAdjacencia.get(vertice) || [];
     for (const vizinho of vizinhos) {
       if (!visitados.has(vizinho)) {
         profundidade++;
         this.arestasArvore.push([vertice, vizinho]);
         this.buscaEmProfundidadeAuxiliar(vizinho, visitados, profundidade);
+        profundidade--; 
+      } else if (this.profundidadeEntrada.get(vizinho)! !== undefined && profundidade < this.profundidadeEntrada.get(vizinho)!) {
+        this.arestasRetorno.push([vertice, vizinho]);
       }
     }
-
+  
     this.profundidadeSaida.set(vertice, profundidade);
     profundidade++;
-  } 
-
+  }  
   
 
   imprimirInformacoesBuscaEmProfundidade(): void {
