@@ -85,6 +85,21 @@ export class GrafoLib {
     }
   }
 
+  removerVertice(verticeRemovido: number, rotulo: string = ""): void{
+    this.imprimirGrafo();
+      let contadorVizinhos;
+          for(contadorVizinhos = 0; contadorVizinhos < this.listaAdjacencia.size; contadorVizinhos++){
+            if(this.saoVizinhos(verticeRemovido, contadorVizinhos)){
+                this.removerAresta(verticeRemovido, contadorVizinhos);
+            }
+          }
+
+        this.vertices.delete(verticeRemovido);
+        this.listaAdjacencia.delete(verticeRemovido);
+        this.imprimirGrafo();
+  }
+
+
   grauVertice(vertice: number): number {
     if (this.usarMatrizAdjacencia) {
       let grau = 0;
