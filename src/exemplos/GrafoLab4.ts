@@ -16,28 +16,39 @@ export default function Grafo4(){
     grafo4.adicionarAresta(3,5)
     grafo4.adicionarAresta(4,5)
 
-    let grafoaux = new GrafoLib()
-    grafoaux = grafo4
-
+    // a) Gerar um subgrafo próprio
     var verticesSelecionados = new Set([ 1,2,3,4]); 
     var arestasSelecionadas = new Set<[number, number]>();
     arestasSelecionadas.add([1, 2]);
-
-    // Cria subgrafo proprio
-    //(grafo4.criarSubgrafo(verticesSelecionados, arestasSelecionadas)).imprimirGrafo()
-
-    /*/ Cria sugrafo gerador tenho que ajustar
-    verticesSelecionados = new Set([1,2,3,4,5])
-    arestasSelecionadas = new Set<[number, number]>();
-    arestasSelecionadas.add([1, 2]);
     arestasSelecionadas.add([1, 3]);
-    arestasSelecionadas.add([1, 3]);*/
+    grafo4.criarSubgrafo(verticesSelecionados, arestasSelecionadas)
 
-    // Seja X1 = {y, v, x, u}, gerar o subgrafo induzido G[X1]
-    //verticesSelecionados = new Set([1,2,3,4])
-    //grafo4.subgrafoInduzido(verticesSelecionados)
-    
+    //b) Gerar um subgrafo gerador
+    var arestasSelecionadas2 = new Set<[number, number]>();
+    arestasSelecionadas2.add([1, 2]);
+    let grafoaux = new GrafoLib()
+    grafoaux = grafo4
+    grafoaux.subtrairArestas(arestasSelecionadas2)
+
+    //c) Seja X1 = {y, v, x, u}, gerar o subgrafo induzido G[X1]
+    verticesSelecionados = new Set([1,2,3,4])
+    grafo4.subgrafoInduzido(verticesSelecionados)
+
+    //d) Seja X2 = {u,w}, gerar G-X
+    grafoaux = grafo4
     verticesSelecionados = new Set([1,5])
     grafoaux.subtrairVertices(verticesSelecionados)
+
+    /*
+
+    //e) Seja E1 = {a,c,e,g}, gerar o subgrafo aresta-induzido G[E1]
+    arestasSelecionadas.add([1, 3]); //a
+    arestasSelecionadas.add([4, 5]);
+    arestasSelecionadas.add([1, 2]);
+    arestasSelecionadas.add([3, 2]);
+    grafoaux.subtrairArestas(arestasSelecionadas)
+
+*/
+
     
 }

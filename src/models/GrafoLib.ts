@@ -323,7 +323,7 @@ export class GrafoLib {
     }
   }
 
-  criarSubgrafo(verticesSelecionados: Set<number>, arestasSelecionadas: Set<[number, number]>): GrafoLib {
+  criarSubgrafo(verticesSelecionados: Set<number>, arestasSelecionadas: Set<[number, number]>): void {
     const subgrafo = new GrafoLib();
 
     // Adicionar vértices selecionados ao subgrafo
@@ -341,7 +341,7 @@ export class GrafoLib {
       }
     }
 
-    return subgrafo;
+    subgrafo.imprimirGrafo();
   }
 
 
@@ -426,6 +426,8 @@ export class GrafoLib {
     for (const [origem, destino] of arestasE) {
       this.removerAresta(origem, destino);
     }
+
+    this.imprimirGrafo()
   }
 
 }
