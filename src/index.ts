@@ -9,17 +9,18 @@ import Grafo4 from "./exemplos/GrafoLab4";
 
 
 // Conteudo do lab 01
+console.log("Conteudo do lab 01")
 console.log("Grafo 1\n")
 Grafo1().imprimirGrafo()
 
 console.log("\n")
-console.log("Grafo 2\n")
+console.log("Grafo 2")
 Grafo2().imprimirGrafo()
 
 
 // Conteudo do lab 02
-
 console.log("\n")
+console.log("Conteudo do lab 02\n")
 console.log("Grafo completo kn\n");
 kGrafo(7);
 
@@ -33,10 +34,12 @@ console.log("Bipartido: ")
 console.log(gerarGrafoBipartido(3,4).ehBipartido())
 
 // Conteudo do lab 03
+console.log("\n")
+console.log("Conteudo do lab 03")
 console.log("Busca em profundidade: ")
 console.log(GrafoProfundidade().buscaEmProfundidade(0))
 
-/*
-console.log("Grafo 4")
+//Conteudo do lab 04
+console.log("\n")
+console.log("Conteudo do lab 03\n")
 Grafo4()
-*/

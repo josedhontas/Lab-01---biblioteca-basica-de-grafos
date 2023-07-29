@@ -16,30 +16,34 @@ export default function Grafo4() {
     grafo4.adicionarAresta(3, 5)
     grafo4.adicionarAresta(4, 5)
 
-    // a) Gerar um subgrafo próprio
+    console.log("a) Gerar um subgrafo próprio")
     var verticesSelecionados = new Set([1, 2, 3, 4]);
     var arestasSelecionadas = new Set<[number, number]>();
     arestasSelecionadas.add([1, 2]);
     arestasSelecionadas.add([1, 3]);
     grafo4.criarSubgrafo(verticesSelecionados, arestasSelecionadas)
 
-    //b) Gerar um subgrafo gerador
+    console.log("\n")
+    console.log("b) Gerar um subgrafo gerador")
     var arestasSelecionadas2 = new Set<[number, number]>();
     arestasSelecionadas2.add([1, 2]);
     let grafoaux = new GrafoLib()
     grafoaux = grafo4
     grafoaux.subtrairArestas(arestasSelecionadas2)
 
-    //c) Seja X1 = {y, v, x, u}, gerar o subgrafo induzido G[X1]
+    console.log("\n")
+    console.log("c) Seja X1 = {y, v, x, u}, gerar o subgrafo induzido G[X1]")
     verticesSelecionados = new Set([1, 2, 3, 4])
     grafo4.subgrafoInduzido(verticesSelecionados)
 
-    //d) Seja X2 = {u,w}, gerar G-X2
+    console.log("\n")
+    console.log("d) Seja X2 = {u,w}, gerar G-X2")
     const grafo4clone = grafo4.cloneGrafo(grafo4)
     verticesSelecionados = new Set([1, 5])
     grafo4clone.subtrairVertices(verticesSelecionados)
     
-    //e) Seja E1 = {a,c,e,g}, gerar o subgrafo aresta-induzido G[E1]
+    console.log("\n")
+    console.log("e) Seja E1 = {a,c,e,g}, gerar o subgrafo aresta-induzido G[E1]")
     var arestasSelecionadasArestaInduzido = new Set<[number, number]>();
     arestasSelecionadasArestaInduzido.add([1, 3]); // a
     arestasSelecionadasArestaInduzido.add([4, 5]);
