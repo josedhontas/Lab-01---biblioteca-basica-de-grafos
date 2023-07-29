@@ -7,6 +7,7 @@ import gerarGrafoRegular from "./exemplos/gerarGrafoRegular";
 import gerarGrafoBipartido from "./exemplos/gerarGrafoBipartido";
 import Grafo4 from "./exemplos/GrafoLab4";
 
+
 // Conteudo do lab 01
 console.log("Grafo 1\n")
 Grafo1().imprimirGrafo()
@@ -35,6 +36,7 @@ console.log(gerarGrafoBipartido(3,4).ehBipartido())
 console.log("Busca em profundidade: ")
 console.log(GrafoProfundidade().buscaEmProfundidade(0))
 
-
-//console.log("Grafo 4")
-//Grafo4()
+/*
+console.log("Grafo 4")
+Grafo4()
+*/

@@ -85,16 +85,16 @@ export class GrafoLib {
     }
   }
 
-  removerVertice(verticeRemovido: number, rotulo: string = ""): void{
-      let contadorVizinhos;
-          for(contadorVizinhos = 0; contadorVizinhos < this.listaAdjacencia.size; contadorVizinhos++){
-            if(this.saoVizinhos(verticeRemovido, contadorVizinhos)){
-                this.removerAresta(verticeRemovido, contadorVizinhos);
-            }
-          }
+  removerVertice(verticeRemovido: number, rotulo: string = ""): void {
+    let contadorVizinhos;
+    for (contadorVizinhos = 0; contadorVizinhos < this.listaAdjacencia.size; contadorVizinhos++) {
+      if (this.saoVizinhos(verticeRemovido, contadorVizinhos)) {
+        this.removerAresta(verticeRemovido, contadorVizinhos);
+      }
+    }
 
-        this.vertices.delete(verticeRemovido);
-        this.listaAdjacencia.delete(verticeRemovido);
+    this.vertices.delete(verticeRemovido);
+    this.listaAdjacencia.delete(verticeRemovido);
   }
 
 
@@ -141,9 +141,9 @@ export class GrafoLib {
     const somaGraus = this.calcularSomaGraus();
     const numVerticesGrauPar = this.contarVerticesGrauPar();
     if (this.usarMatrizAdjacencia) {
-      numVerticesGrauImpar = this.matrizAdjacencia.length- numVerticesGrauPar;
+      numVerticesGrauImpar = this.matrizAdjacencia.length - numVerticesGrauPar;
 
-    }else{
+    } else {
       numVerticesGrauImpar = this.vertices.size - numVerticesGrauPar;
     }
     console.log("\n")
@@ -151,7 +151,7 @@ export class GrafoLib {
     console.log(`Número de vértices de grau par: ${numVerticesGrauPar}`);
     console.log(`Número de vértices de grau ímpar: ${numVerticesGrauImpar}`);
   }
-  
+
   calcularSomaGraus(): number {
     let soma = 0;
     if (this.usarMatrizAdjacencia) {
@@ -168,7 +168,7 @@ export class GrafoLib {
     }
     return soma;
   }
-  
+
   contarVerticesGrauPar(): number {
     let count = 0;
     if (this.usarMatrizAdjacencia) {
@@ -187,7 +187,7 @@ export class GrafoLib {
     }
     return count;
   }
-  
+
   somarLinhaMatriz(indice: number): number {
     let soma = 0;
     for (let i = 0; i < this.matrizAdjacencia[indice].length; i++) {
@@ -247,9 +247,9 @@ export class GrafoLib {
 
   ehBipartido(): boolean {
     const visitados: Map<number, number> = new Map();
-    const fila: number[] = []; 
-    const verticeInicial = this.vertices.keys().next().value; 
-    visitados.set(verticeInicial, 0); 
+    const fila: number[] = [];
+    const verticeInicial = this.vertices.keys().next().value;
+    visitados.set(verticeInicial, 0);
 
     fila.push(verticeInicial);
 
@@ -260,10 +260,10 @@ export class GrafoLib {
       const vizinhos = this.listaAdjacencia.get(verticeAtual) || [];
       for (const vizinho of vizinhos) {
         if (!visitados.has(vizinho)) {
-          visitados.set(vizinho, 1 - corAtual); 
+          visitados.set(vizinho, 1 - corAtual);
           fila.push(vizinho);
         } else if (visitados.get(vizinho) === corAtual) {
-          return false; 
+          return false;
         }
       }
     }
@@ -281,7 +281,7 @@ export class GrafoLib {
     this.buscaEmProfundidadeAuxiliar(verticeInicial, visitados, profundidade);
     this.imprimirInformacoesBuscaEmProfundidade();
   }
-  
+
   private buscaEmProfundidadeAuxiliar(vertice: number, visitados: Set<number>, profundidade: number): void {
     visitados.add(vertice);
     let rotulo = this.vertices.get(vertice);
@@ -293,16 +293,16 @@ export class GrafoLib {
         profundidade++;
         this.arestasArvore.push([vertice, vizinho]);
         this.buscaEmProfundidadeAuxiliar(vizinho, visitados, profundidade);
-        profundidade--; 
+        profundidade--;
       } else if (this.profundidadeEntrada.get(vizinho)! !== undefined && profundidade < this.profundidadeEntrada.get(vizinho)!) {
         this.arestasRetorno.push([vertice, vizinho]);
       }
     }
-  
+
     this.profundidadeSaida.set(vertice, profundidade);
     profundidade++;
-  }  
-  
+  }
+
 
   imprimirInformacoesBuscaEmProfundidade(): void {
     console.log('Arestas da árvore:');
@@ -326,7 +326,6 @@ export class GrafoLib {
   criarSubgrafo(verticesSelecionados: Set<number>, arestasSelecionadas: Set<[number, number]>): void {
     const subgrafo = new GrafoLib();
 
-    // Adicionar vértices selecionados ao subgrafo
     for (const verticeSelecionado of verticesSelecionados) {
       if (this.vertices.has(verticeSelecionado)) {
         const rotulo = this.vertices.get(verticeSelecionado) || "";
@@ -334,7 +333,6 @@ export class GrafoLib {
       }
     }
 
-    // Adicionar arestas selecionadas ao subgrafo
     for (const [origem, destino] of arestasSelecionadas) {
       if (subgrafo.vertices.has(origem) && subgrafo.vertices.has(destino)) {
         subgrafo.adicionarAresta(origem, destino);
@@ -347,14 +345,14 @@ export class GrafoLib {
 
   subgrafoInduzido(verticesX: Set<number>): void {
     const subgrafo = new GrafoLib(false);
-  
+
     for (const verticeX of verticesX) {
       if (this.vertices.has(verticeX)) {
         const rotulo = this.vertices.get(verticeX) || "";
         subgrafo.adicionarVertice(verticeX, rotulo);
       }
     }
-  
+
     for (const [origem, destino] of this.listaAdjacencia.entries()) {
       if (verticesX.has(origem)) {
         for (const vizinho of destino) {
@@ -364,25 +362,22 @@ export class GrafoLib {
         }
       }
     }
-  
+
     subgrafo.imprimirGrafo();
   }
-  
-  
-  
-  
+
+
+
+
 
   subtrairVertices(verticesX: Set<number>): void {
-    // Remover vértices do conjunto X
     for (const verticeX of verticesX) {
       if (this.vertices.has(verticeX)) {
-        // Remover arestas que possuem o vértice X como destino
         const vizinhosX = this.listaAdjacencia.get(verticeX) || [];
         for (const vizinho of vizinhosX) {
           this.removerAresta(vizinho, verticeX);
         }
 
-        // Remover arestas que possuem o vértice X como origem
         const vizinhosDoVertice = this.listaAdjacencia.get(verticeX);
         if (vizinhosDoVertice) {
           for (const vizinho of vizinhosDoVertice) {
@@ -390,7 +385,6 @@ export class GrafoLib {
           }
         }
 
-        // Remover o vértice do grafo
         this.removerVertice(verticeX);
       }
     }
@@ -400,9 +394,8 @@ export class GrafoLib {
 
 
   subgrafoArestaInduzido(arestasE: Set<[number, number]>): void {
-    const subgrafo = new GrafoLib(false); // Utiliza lista de adjacência
+    const subgrafo = new GrafoLib(false);
 
-    // Adicionar as arestas do conjunto E ao subgrafo
     for (const [origem, destino] of arestasE) {
       if (this.vertices.has(origem) && this.vertices.has(destino)) {
         if (!subgrafo.vertices.has(origem)) {
@@ -415,19 +408,47 @@ export class GrafoLib {
         }
 
         subgrafo.adicionarAresta(origem, destino);
+
+        const vizinhosOrigem = this.listaAdjacencia.get(origem) || [];
+        for (const vizinho of vizinhosOrigem) {
+          if (vizinho !== destino && arestasE.has([origem, vizinho])) {
+            if (!subgrafo.vertices.has(vizinho)) {
+              const rotuloVizinho = this.vertices.get(vizinho) || "";
+              subgrafo.adicionarVertice(vizinho, rotuloVizinho);
+            }
+            subgrafo.adicionarAresta(origem, vizinho);
+          }
+        }
       }
     }
 
     subgrafo.imprimirGrafo();
   }
 
+
+
   subtrairArestas(arestasE: Set<[number, number]>): void {
-    // Remover as arestas do conjunto E
     for (const [origem, destino] of arestasE) {
       this.removerAresta(origem, destino);
     }
 
     this.imprimirGrafo()
+  }
+
+  cloneGrafo(original: GrafoLib): GrafoLib {
+    const novoGrafo = new GrafoLib(original.usarMatrizAdjacencia);
+
+    for (const [indice, rotulo] of original.vertices.entries()) {
+      novoGrafo.adicionarVertice(indice, rotulo);
+    }
+
+    for (const [origem, vizinhos] of original.listaAdjacencia.entries()) {
+      for (const vizinho of vizinhos) {
+        novoGrafo.adicionarAresta(origem, vizinho);
+      }
+    }
+
+    return novoGrafo;
   }
 
 }
