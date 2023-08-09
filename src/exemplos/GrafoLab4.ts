@@ -42,7 +42,7 @@ export default function Grafo4() {
     verticesSelecionados = new Set([1, 5])
     grafo4clone.subtrairVertices(verticesSelecionados)
     
-    console.log("\n")
+    console.log("\n") 
     console.log("e) Seja E1 = {a,c,e,g}, gerar o subgrafo aresta-induzido G[E1]")
     var arestasSelecionadasArestaInduzido = new Set<[number, number]>();
     arestasSelecionadasArestaInduzido.add([1, 3]); // a
