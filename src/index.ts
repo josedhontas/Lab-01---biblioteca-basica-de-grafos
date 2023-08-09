@@ -37,7 +37,7 @@ console.log(gerarGrafoBipartido(3,4).ehBipartido())
 console.log("\n")
 console.log("Conteudo do lab 03")
 console.log("Busca em profundidade: ")
-console.log(GrafoProfundidade().buscaEmProfundidade(0))
+console.log(GrafoProfundidade().buscaEmProfundidade(0, 7))
 
 //Conteudo do lab 04
 console.log("\n")

@@ -271,19 +271,22 @@ export class GrafoLib {
     return true;
   }
 
-  buscaEmProfundidade(verticeInicial: number): void {
+  buscaEmProfundidade(verticeInicial: number, verticeFinal: number): void {
     const visitados: Set<number> = new Set();
     this.arestasArvore = [];
     this.arestasRetorno = [];
     this.profundidadeEntrada = new Map<number, number>();
     this.profundidadeSaida = new Map<number, number>();
     let profundidade = 0;
-    this.buscaEmProfundidadeAuxiliar(verticeInicial, visitados, profundidade);
+    this.buscaEmProfundidadeAuxiliar(verticeInicial, visitados, profundidade, verticeFinal);
     this.imprimirInformacoesBuscaEmProfundidade();
   }
 
-  private buscaEmProfundidadeAuxiliar(vertice: number, visitados: Set<number>, profundidade: number): void {
+  private buscaEmProfundidadeAuxiliar(vertice: number, visitados: Set<number>, profundidade: number, verticeFinal: number): void {
     visitados.add(vertice);
+    if(vertice === verticeFinal){
+      return;
+    }
     let rotulo = this.vertices.get(vertice);
     console.log(`Visitando vertice ${vertice} (${rotulo})`)
     this.profundidadeEntrada.set(vertice, profundidade);
@@ -292,7 +295,7 @@ export class GrafoLib {
       if (!visitados.has(vizinho)) {
         profundidade++;
         this.arestasArvore.push([vertice, vizinho]);
-        this.buscaEmProfundidadeAuxiliar(vizinho, visitados, profundidade);
+        this.buscaEmProfundidadeAuxiliar(vizinho, visitados, profundidade, verticeFinal);
         profundidade--;
       } else if (this.profundidadeEntrada.get(vizinho)! !== undefined && profundidade < this.profundidadeEntrada.get(vizinho)!) {
         this.arestasRetorno.push([vertice, vizinho]);
@@ -302,6 +305,40 @@ export class GrafoLib {
     this.profundidadeSaida.set(vertice, profundidade);
     profundidade++;
   }
+/*
+  Passeio(verticeInicial: number, verticeFinal: number) : void{
+    const visitados: Set<number> = new Set();
+    this.arestasArvore = [];
+    visitados = PasseioAuxiliar(verticeInicial, visitados, verticeFinal);
+    for(let i = 0; i < visitados.length(); i++){   
+        let rotulo = this.vertices.get(visitados[i]); 
+        console.log(`${visitados[i]}, ${arestasArvore[i]? || []}`);
+    }
+  }
+
+  PasseioAuxiliar(verticeInicial: number, visitados: set <number>, verticeFinal: number) : any{
+    visitados.add(verticeInicial);
+    const vizinhos = this.listaAdjacencia.get(vertice) || [];
+    if(vizinhos.has(verticeFinal)){
+      visitados.add(verticeFinal);
+      this.arestaArvore.push([verticeInicial, verticeFinal]);
+
+      return visitados;
+    }
+    for(const vizinho of vizinhos){
+      if(!visitados.has(verticeFinal) && vizinho !== verticeInicial){
+        this.arestaArvore.push([vertice, vizinho])
+        PasseioAuxiliar(vizinho, visitados, verticeFinal)
+
+      }else if(!visitados.has(verticeFinal)){
+        this.arestaArvore.push([vizinho])
+
+      }else{
+        return visitados;
+      }
+    }
+  }
+  */
 
 
   imprimirInformacoesBuscaEmProfundidade(): void {
