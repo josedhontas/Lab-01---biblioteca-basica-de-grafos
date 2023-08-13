@@ -160,7 +160,7 @@ export class Passeio {
 
         pilha.pop();
         return false;
-    }
+    } 
 
     encontrarCicloComGrauMaiorOuIgualA2(grafo: GrafoLib): Passeio | null {
         for (const vertice of this.vertices) {
