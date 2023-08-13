@@ -51,9 +51,9 @@ function testeEncontrarCaminho(passeio: Passeio, grafo: GrafoLib, v: number, x: 
   console.log();
 }
 
-/*/ Função de teste para o Exercício 5.7
-function testeEncontrarCiclo(grafo: GrafoLib): void {
-    const cicloEncontrado = passeio.encontrarCiclo(grafo);
+// Função de teste para o Exercício 5.7
+function testePossuiCiclo(grafo: GrafoLib): void {
+    const cicloEncontrado = passeio.possuiCiclo(grafo);
     if (cicloEncontrado) {
       console.log("Ciclo encontrado:");
       cicloEncontrado.imprimirPasseio(grafo);
@@ -61,7 +61,7 @@ function testeEncontrarCiclo(grafo: GrafoLib): void {
       console.log("Nenhum ciclo encontrado.");
     }
     console.log();
-  }*/
+  }
   
   // Função de teste para o Exercício 5.8
   function testeEncontrarCicloGrafoComGrauMaiorIgualA2(grafo: GrafoLib): void {
@@ -89,7 +89,7 @@ grafo.adicionarAresta(5, 4);
 grafo.adicionarAresta(2, 3);
 grafo.adicionarAresta(2, 4);
 
-// Passeio de exemplo
+// Passeio de exemplo do slide 3
 const passeio = new Passeio();
 passeio.adicionarVertice(1);
 passeio.adicionarVertice(2);
@@ -111,6 +111,9 @@ testeEncontrarPasseio(passeio, grafo, 1, 3);
 
 console.log("Exercicio 5.6")
 testeEncontrarCaminho(passeio, grafo, 1, 3);
+
+console.log("Exericio 5.7")
+testePossuiCiclo(grafo)
 
 console.log("Exercicio 5.8")
 testeEncontrarCicloGrafoComGrauMaiorIgualA2(grafo)
