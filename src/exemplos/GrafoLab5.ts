@@ -77,10 +77,12 @@ function testePossuiCiclo(grafo: GrafoLib): void {
 
     // Função de teste para o Exercício E1
     function E1(aresta: [number, number], grafo: GrafoLib, passeio: Passeio): void {
-      const ciclo = passeio.encontrarCicloComAresta(aresta, grafo);
-      if(ciclo){
-        console.log("")
-        ciclo.imprimirPasseio(grafo)
+      const ciclo = passeio.encontrarCicloComArestaNaTrilha(passeio, aresta, grafo);
+      if (ciclo) {
+        console.log("Ciclo encontrado com a aresta:", aresta);
+        ciclo.imprimirPasseio(grafo);
+      } else {
+        console.log("Nenhum ciclo encontrado com a aresta:", aresta);
       }
     }
 
@@ -133,8 +135,8 @@ testePossuiCiclo(grafo)
 console.log("Exercicio 5.8")
 testeEncontrarCicloGrafoComGrauMaiorIgualA2(grafo)
 
-console.log("E1")
-//E1([1,5], grafo, passeio)
+console.log("E1");
+E1([1, 5], grafo, passeio);
 
 console.log("E2")
 E2(1,2,grafo)

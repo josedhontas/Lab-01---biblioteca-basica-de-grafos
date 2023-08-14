@@ -213,4 +213,30 @@ export class Passeio {
     
         return null;
       }
+
+      encontrarCicloComArestaNaTrilha(trilha: Passeio, aresta: [number, number], grafo: GrafoLib): Passeio | null {
+        const [u, v] = aresta;
+    
+        const trilhaSemAresta = new Passeio();
+        for (const vertice of trilha.obterVertices()) {
+            if (vertice !== u && vertice !== v) {
+                trilhaSemAresta.adicionarVertice(vertice);
+            }
+        }
+    
+        const caminho = trilhaSemAresta.encontrarCaminho(grafo, u, v);
+    
+        if (caminho) {
+            const ciclo = new Passeio();
+            ciclo.adicionarVertice(u);
+            for (const vertice of caminho.obterVertices()) {
+                ciclo.adicionarVertice(vertice);
+            }
+            ciclo.adicionarVertice(v);
+            return ciclo;
+        }
+    
+        return null;
+    }
+    
 }
