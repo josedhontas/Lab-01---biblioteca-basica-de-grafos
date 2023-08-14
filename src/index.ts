@@ -45,9 +45,8 @@ console.log("\n")
 console.log("Conteudo do lab 04\n")
 Grafo4()
 
-/*
 console.log("\n")
 console.log("Conteudo do lab 05")
 GrafoLab5()
-*/
+
 

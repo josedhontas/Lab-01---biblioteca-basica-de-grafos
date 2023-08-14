@@ -128,13 +128,12 @@ export class Passeio {
         return null;
     }
 
-    possuiCiclo(grafo: GrafoLib): Passeio | null {
+    buscarCiclo(grafo: GrafoLib): Passeio | null {
         const visitados: Set<number> = new Set();
-        const pilha: number[] = [];
 
         for (const vertice of this.vertices) {
             if (!visitados.has(vertice)) {
-                const ciclo = this.dfsPossuiCiclo(grafo, vertice, visitados, pilha);
+                const ciclo = this.encontrarCiclo(grafo, vertice, vertice, new Set([vertice]))
                 if (ciclo) {
                     return ciclo;
                 }
@@ -143,31 +142,7 @@ export class Passeio {
 
         return null;
     }
-
-    private dfsPossuiCiclo(grafo: GrafoLib, vertice: number, visitados: Set<number>, pilha: number[]): Passeio | null {
-        visitados.add(vertice);
-        pilha.push(vertice);
-
-        const vizinhos = grafo.listaAdjacencia.get(vertice) || [];
-        for (const vizinho of vizinhos) {
-            if (!visitados.has(vizinho)) {
-                const ciclo = this.dfsPossuiCiclo(grafo, vizinho, visitados, pilha);
-                if (ciclo) {
-                    return ciclo;
-                }
-            } else if (pilha.includes(vizinho)) {
-                const ciclo = new Passeio();
-                const startIndex = pilha.indexOf(vizinho);
-                for (let i = startIndex; i < pilha.length; i++) {
-                    ciclo.adicionarVertice(pilha[i]);
-                }
-                return ciclo;
-            }
-        }
-
-        pilha.pop();
-        return null;
-    }
+    
     encontrarCicloComGrauMaiorOuIgualA2(grafo: GrafoLib): Passeio | null {
         for (const vertice of this.vertices) {
             const vizinhos = grafo.listaAdjacencia.get(vertice) || [];
