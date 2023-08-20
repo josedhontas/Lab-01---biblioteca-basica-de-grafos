@@ -211,41 +211,6 @@ export class Passeio {
         return null;
     }
 
-    encontrarCaminhoEntreUV(u: number, v: number, grafo: GrafoLib): Passeio | null {
-        const caminho = this.encontrarCaminho(grafo, u, v);
-
-        if (caminho) {
-            return caminho;
-        }
-
-        return null;
-    }
-
-    encontrarCicloComArestaNaTrilha(trilha: Passeio, aresta: [number, number], grafo: GrafoLib): Passeio | null {
-        const [u, v] = aresta;
-
-        const trilhaSemAresta = new Passeio();
-        for (const vertice of trilha.obterVertices()) {
-            if (vertice !== u && vertice !== v) {
-                trilhaSemAresta.adicionarVertice(vertice);
-            }
-        }
-
-        const caminho = trilhaSemAresta.encontrarCaminho(grafo, u, v);
-
-        if (caminho) {
-            const ciclo = new Passeio();
-            ciclo.adicionarVertice(u);
-            for (const vertice of caminho.obterVertices()) {
-                ciclo.adicionarVertice(vertice);
-            }
-            ciclo.adicionarVertice(v);
-            return ciclo;
-        }
-
-        return null;
-    }
-
     identificarComponentes(grafo: GrafoLib): void {
         let componenteAtual = 0;
         const visitados: Set<number> = new Set();
@@ -330,6 +295,45 @@ export class Passeio {
         emPilha.delete(vertice);
         return false;
     }
+
+    // Exercício E1
+    encontrarCicloComArestaNaTrilha(trilha: Passeio, aresta: [number, number], grafo: GrafoLib): Passeio | null {
+        const [u, v] = aresta;
+
+        // Encontre o caminho da trilha sem a aresta
+        const trilhaSemAresta = new Passeio();
+        for (const vertice of trilha.obterVertices()) {
+            if (vertice !== u && vertice !== v) {
+                trilhaSemAresta.adicionarVertice(vertice);
+            }
+        }
+
+        const caminho = trilhaSemAresta.encontrarCaminho(grafo, u, v);
+
+        if (caminho) {
+            const ciclo = new Passeio();
+            ciclo.adicionarVertice(u);
+            for (const vertice of caminho.obterVertices()) {
+                ciclo.adicionarVertice(vertice);
+            }
+            ciclo.adicionarVertice(v);
+            return ciclo;
+        }
+
+        return null;
+    }
+
+    // Exercício E2
+    encontrarCaminhoEntreUV(u: number, v: number, grafo: GrafoLib): Passeio | null {
+        const caminho = this.encontrarCaminho(grafo, u, v);
+
+        if (caminho) {
+            return caminho;
+        }
+
+        return null;
+    }
+
 
 
 

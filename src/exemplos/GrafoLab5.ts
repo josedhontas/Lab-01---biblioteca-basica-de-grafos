@@ -103,13 +103,18 @@ export default function GrafoLab5() {
     } else {
       console.log("Nenhum ciclo encontrado com a aresta:", aresta);
     }
+    console.log("")
   }
 
+  // Função de teste para o Exercício E2
   function E2(u: number, v: number, grafo: GrafoLib): void {
     const ciclo = passeio.encontrarCaminhoEntreUV(u, v, grafo);
     if (ciclo) {
+      console.log(`Caminho encontrado entre ${u} e ${v}`)
       ciclo.imprimirPasseio(grafo)
     }
+    console.log("")
+
   }
 
 

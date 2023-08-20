@@ -8,6 +8,10 @@ import gerarGrafoBipartido from "./exemplos/gerarGrafoBipartido";
 import Grafo4 from "./exemplos/GrafoLab4";
 import GrafoLab5 from "./exemplos/GrafoLab5";
 
+/*Nota: lembrar de comentar os trechos do lab que nao quer que seja exibido.
+Por exemplo: Quero testar o conteudo do lab 03, então vou comentar os demais
+para evitar excesso de conteudo no terminal.
+*/
 
 // Conteudo do lab 01
 console.log("Conteudo do lab 01")
