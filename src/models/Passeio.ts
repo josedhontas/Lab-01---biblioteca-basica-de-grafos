@@ -20,10 +20,17 @@ export class Passeio {
     }
 
     imprimirPasseio(grafo: GrafoLib): void {
-        for (const vertice of this.vertices) {
-            console.log(`Vértice ${vertice} (${grafo.vertices.get(vertice)})`);
+        for (let i = 0; i < this.vertices.length; i++) {
+            const vertice = this.vertices[i];
+            console.log(`Vértice ${vertice}`);
+
+            if (i < this.vertices.length - 1) {
+                const proximoVertice = this.vertices[i + 1];
+                console.log(`Aresta (${vertice}, ${proximoVertice})`);
+            }
         }
     }
+
 
     imprimirArestas(grafo: GrafoLib): void {
         for (let i = 0; i < this.vertices.length - 1; i++) {
@@ -142,7 +149,7 @@ export class Passeio {
 
         return null;
     }
-    
+
     encontrarCicloComGrauMaiorOuIgualA2(grafo: GrafoLib): Passeio | null {
         for (const vertice of this.vertices) {
             const vizinhos = grafo.listaAdjacencia.get(vertice) || [];
@@ -206,26 +213,26 @@ export class Passeio {
 
     encontrarCaminhoEntreUV(u: number, v: number, grafo: GrafoLib): Passeio | null {
         const caminho = this.encontrarCaminho(grafo, u, v);
-    
-        if (caminho) {
-          return caminho;
-        }
-    
-        return null;
-      }
 
-      encontrarCicloComArestaNaTrilha(trilha: Passeio, aresta: [number, number], grafo: GrafoLib): Passeio | null {
+        if (caminho) {
+            return caminho;
+        }
+
+        return null;
+    }
+
+    encontrarCicloComArestaNaTrilha(trilha: Passeio, aresta: [number, number], grafo: GrafoLib): Passeio | null {
         const [u, v] = aresta;
-    
+
         const trilhaSemAresta = new Passeio();
         for (const vertice of trilha.obterVertices()) {
             if (vertice !== u && vertice !== v) {
                 trilhaSemAresta.adicionarVertice(vertice);
             }
         }
-    
+
         const caminho = trilhaSemAresta.encontrarCaminho(grafo, u, v);
-    
+
         if (caminho) {
             const ciclo = new Passeio();
             ciclo.adicionarVertice(u);
@@ -235,8 +242,95 @@ export class Passeio {
             ciclo.adicionarVertice(v);
             return ciclo;
         }
-    
+
         return null;
     }
-    
+
+    identificarComponentes(grafo: GrafoLib): void {
+        let componenteAtual = 0;
+        const visitados: Set<number> = new Set();
+
+        for (const vertice of grafo.vertices.keys()) {
+            if (!visitados.has(vertice)) {
+                componenteAtual++;
+                const componente = this.identificarComponenteDFS(grafo, vertice, componenteAtual, visitados);
+                console.log(`Componente ${componenteAtual}: ${componente.join(', ')}`);
+            }
+        }
+    }
+
+    private identificarComponenteDFS(grafo: GrafoLib, vertice: number, componenteAtual: number, visitados: Set<number>): number[] {
+        visitados.add(vertice);
+        grafo.vertices.set(vertice, componenteAtual.toString());
+
+        const componente: number[] = [vertice];
+
+        const vizinhos = grafo.listaAdjacencia.get(vertice) || [];
+        for (const vizinho of vizinhos) {
+            if (!visitados.has(vizinho)) {
+                const subComponente = this.identificarComponenteDFS(grafo, vizinho, componenteAtual, visitados);
+                componente.push(...subComponente);
+            }
+        }
+
+        return componente;
+    }
+
+
+    verificarConexao(grafo: GrafoLib): boolean {
+        const verticeInicial = grafo.vertices.keys().next().value;
+        const visitados: Set<number> = new Set();
+        const fila: number[] = [verticeInicial];
+
+        while (fila.length > 0) {
+            const vertice = fila.shift() as number;
+            visitados.add(vertice);
+
+            const vizinhos = grafo.listaAdjacencia.get(vertice) || [];
+            for (const vizinho of vizinhos) {
+                if (!visitados.has(vizinho)) {
+                    fila.push(vizinho);
+                }
+            }
+        }
+
+        return visitados.size === grafo.vertices.size;
+    }
+
+    possuiCircuito(grafo: GrafoLib): boolean {
+        const visitados: Set<number> = new Set();
+        const emPilha: Set<number> = new Set();
+
+        for (const vertice of this.vertices) {
+            if (!visitados.has(vertice)) {
+                if (this.possuiCicloDFS(grafo, vertice, visitados, emPilha)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private possuiCicloDFS(grafo: GrafoLib, vertice: number, visitados: Set<number>, emPilha: Set<number>): boolean {
+        visitados.add(vertice);
+        emPilha.add(vertice);
+
+        const vizinhos = grafo.listaAdjacencia.get(vertice) || [];
+        for (const vizinho of vizinhos) {
+            if (!visitados.has(vizinho)) {
+                if (this.possuiCicloDFS(grafo, vizinho, visitados, emPilha)) {
+                    return true;
+                }
+            } else if (emPilha.has(vizinho)) {
+                return true;
+            }
+        }
+
+        emPilha.delete(vertice);
+        return false;
+    }
+
+
+
 }
